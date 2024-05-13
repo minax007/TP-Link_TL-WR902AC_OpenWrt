@@ -5,7 +5,7 @@
 
 This GitHub action is to build fresh images of latest OpenWrt snapshot for the TL-WR902AC using imagebuilder.
 
-![grafik](https://github.com/minax007/XIAOMI_MI-RA75_OpenWrt/assets/67478561/923bc998-5b89-424d-9c3c-b130fc0a424c)
+![grafik](https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/assets/67478561/16b9a4ff-575e-436a-b760-83d0479f65b8)
 
 Following packages are already installed, so that you do not need to install them via the command line afterwards: 
 
