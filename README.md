@@ -1,4 +1,4 @@
-[![Build OpenWrt](https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/actions/workflows/openwrt_release_TL-WR902AC.yml/badge.svg)](https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/actions/workflows/openwrt_release_mira75.yml)
+[![Build OpenWrt](https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/actions/workflows/openwrt_release_tl-wr902ac-v3.yml/badge.svg)](https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/actions/workflows/openwrt_release_tl-wr902ac-v3.yml)
 [![release](https://img.shields.io/github/v/release/minax007/TP-Link_TL-WR902AC_OpenWrt.svg)](https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/releases)
 
 # OpenWrt snapshot for TP-Link TL-WR902AC
