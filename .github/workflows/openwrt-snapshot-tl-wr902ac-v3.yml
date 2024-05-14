@@ -48,19 +48,19 @@ jobs:
         wget -O packages.txt https://github.com/minax007/packages/raw/main/external-package-urls.txt
         cat packages.txt | xargs wget -P /mnt/workdir/openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64/packages
         
-#    - name: Build the image of type 1
-#      id: type1
-#      run: |
-#        cd openwrt
-#        make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE1 }}"
-#        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_sysupgrade.bin
+    - name: Build the image of type 1
+      id: type1
+      run: |
+        cd openwrt
+        make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE1 }}"
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_SFTP_sysupgrade.bin
 
     - name: Build the image of type 2
       id: type2
       run: |
         cd openwrt
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE2 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_MINI_sysupgrade.bin
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_DoH_sysupgrade.bin
       
     - name: Create Release
       id: create_release
