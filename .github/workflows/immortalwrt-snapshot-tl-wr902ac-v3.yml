@@ -12,8 +12,9 @@ env:
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
   PROFILE: "tplink_tl-wr902ac-v3"
-#  PACKAGES_TYPE1: "luci luci-theme-material luci-app-adblock tcpdump luci-app-nlbwmon openssh-sftp-server luci-app-cpu-status-mini luci-app-access-control internet-detector luci-app-internet-detector luci-app-log-viewer luci-compat openvpn-openssl luci-app-openvpn"
-  PACKAGES_TYPE2: "luci luci-theme-material luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe"  
+  PACKAGES_TYPE1: "luci luci-theme-material luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe openssh-sftp-server"
+  PACKAGES_TYPE2: "luci luci-theme-material luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe luci-app-https-dns-proxy"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -75,16 +76,16 @@ jobs:
         draft: false
         prerelease: false
 
- #   - name: Upload type1 Asset
- #     id: upload-release-asset-type1
- #     uses: actions/upload-release-asset@v1
- #     env:
- #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
- #     with:
- #       upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
- #       asset_path: immortalwrt/ImmortalWrt_TL-WR902AC_${{ env.IMMORTALWRT_VERSION }}_sysupgrade.bin
- #       asset_name: ImmortalWrt_TL-WR902AC_${{ env.IMMORTALWRT_VERSION }}_sysupgrade.bin 
- #       asset_content_type: application/bin
+    - name: Upload type1 Asset
+      id: upload-release-asset-type1
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: immortalwrt/ImmortalWrt_TL-WR902AC_${{ env.IMMORTALWRT_VERSION }}_SFTP_sysupgrade.bin
+        asset_name: ImmortalWrt_TL-WR902AC_${{ env.IMMORTALWRT_VERSION }}_SFTP_sysupgrade.bin 
+        asset_content_type: application/bin
 
     - name: Upload type2 Asset
       id: upload-release-asset-type2
@@ -93,6 +94,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: immortalwrt/ImmortalWrt_TL-WR902AC_${{ env.IMMORTALWRT_VERSION }}_MINI_sysupgrade.bin
-        asset_name: ImmortalWrt_TL-WR902AC_${{ env.IMMORTALWRT_VERSION }}_MINI_sysupgrade.bin
+        asset_path: immortalwrt/ImmortalWrt_TL-WR902AC_${{ env.IMMORTALWRT_VERSION }}_DoH_sysupgrade.bin
+        asset_name: ImmortalWrt_TL-WR902AC_${{ env.IMMORTALWRT_VERSION }}_DoH_sysupgrade.bin
         asset_content_type: application/bin
