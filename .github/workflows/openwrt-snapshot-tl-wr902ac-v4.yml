@@ -53,25 +53,25 @@ jobs:
       run: |
         cd openwrt
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE1 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_SFTP_sysupgrade.bin
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.RELEASE }}_SFTP_sysupgrade.bin
 
     - name: Build the image of type 2
       id: type2
       run: |
         cd openwrt
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE2 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_DoH_sysupgrade.bin
-      
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.RELEASE }}_DoH_sysupgrade.bin
+        
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.OPENWRT_VERSION }}
-        release_name: OpenWrt TL-WR902AC (${{ env.OPENWRT_VERSION }})
+        tag_name: ${{ env.RELEASE }}
+        release_name: OpenWrt TL-WR902AC (${{ env.RELEASE }})
         body: |
-          This release is based on OpenWrt snapshot ${{ env.OPENWRT_VERSION }}.
+          This release is based on OpenWrt release ${{ env.RELEASE }}.
                     
         draft: false
         prerelease: false
@@ -83,8 +83,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: openwrt/OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_SFTP_sysupgrade.bin
-        asset_name: OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_SFTP_sysupgrade.bin
+        asset_path: openwrt/OpenWrt_TL-WR902AC_${{ env.RELEASE }}_SFTP_sysupgrade.bin
+        asset_name: OpenWrt_TL-WR902AC_${{ env.RELEASE }}_SFTP_sysupgrade.bin
         asset_content_type: application/bin
 
     - name: Upload type2 Asset
@@ -94,6 +94,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: openwrt/OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_DoH_sysupgrade.bin
-        asset_name: OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_DoH_sysupgrade.bin
+        asset_path: openwrt/OpenWrt_TL-WR902AC_${{ env.RELEASE }}_DoH_sysupgrade.bin
+        asset_name: OpenWrt_TL-WR902AC_${{ env.RELEASE }}_DoH_sysupgrade.bin
         asset_content_type: application/bin
