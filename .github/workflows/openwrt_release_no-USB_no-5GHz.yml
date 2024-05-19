@@ -2,6 +2,7 @@ name: OpenWrt RELEASE TL-WR902AC no USB no 5 GHz
 
 # Without USB drivers the compiled file is 0,13 MB smaller (-kmod-usb-ledtrig-usbport -kmod-usb-ohci -kmod-usb2)
 # Without 5GHz driver the compiled file is 0,06 MB smaller (-kmod-mt76x0e)
+# Without LED's and Button GPIO's the compiled file is 0,00 MB smaller (-kmod-leds-gpio -kmod-gpio-button-hotplug)
 # In addition current consumption could be lower
 
 on:
@@ -17,8 +18,8 @@ env:
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
   PROFILE: "tplink_tl-wr902ac-v3"
-  PACKAGES_TYPE1: "luci luci-theme-material luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe openssh-sftp-server -kmod-mt76x0e -kmod-usb-ledtrig-usbport -kmod-usb-ohci -kmod-usb2"
-  PACKAGES_TYPE2: "luci luci-theme-material luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe luci-app-https-dns-proxy curl -kmod-mt76x0e -kmod-usb-ledtrig-usbport -kmod-usb-ohci -kmod-usb2"
+  PACKAGES_TYPE1: "luci luci-theme-material luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe openssh-sftp-server -kmod-mt76x0e -kmod-usb-ledtrig-usbport -kmod-usb-ohci -kmod-usb2 -kmod-leds-gpio -kmod-gpio-button-hotplug"
+  PACKAGES_TYPE2: "luci luci-theme-material luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe luci-app-https-dns-proxy curl -kmod-mt76x0e -kmod-usb-ledtrig-usbport -kmod-usb-ohci -kmod-usb2 -kmod-leds-gpio -kmod-gpio-button-hotplug"
   
 jobs:
   build:
