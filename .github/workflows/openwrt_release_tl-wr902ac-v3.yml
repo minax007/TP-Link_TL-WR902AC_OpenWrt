@@ -1,4 +1,4 @@
-name: Build OpenWrt RELEASE TL-WR902AC
+name: RELEASE TL-WR902AC OPENVPN
 
 on:
 #  schedule:
