@@ -1,4 +1,5 @@
 name: RELEASE TL-WR902AC OPENVPN
+# To reduce firmware size only install minimal Luci packages:   PACKAGES_TYPE1: "uhttpd uhttpd-mod-ubus libiwinfo-lua luci-base luci-app-firewall luci-mod-admin-full -opkg luci-theme-material -luci-theme-bootstrap internet-detector luci-app-internet-detector openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe luci-app-https-dns-proxy"
 
 on:
 #  schedule:
@@ -13,8 +14,8 @@ env:
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
   PROFILE: "tplink_tl-wr902ac-v3"
-  PACKAGES_TYPE1: "luci luci-theme-material luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe openssh-sftp-server"
-  PACKAGES_TYPE2: "luci luci-theme-material luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe luci-app-https-dns-proxy curl"
+  PACKAGES_TYPE1: "uhttpd uhttpd-mod-ubus libiwinfo-lua luci-base luci-app-firewall luci-mod-admin-full -opkg luci-theme-material -luci-theme-bootstrap luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe openssh-sftp-server"
+  PACKAGES_TYPE2: "uhttpd uhttpd-mod-ubus libiwinfo-lua luci-base luci-app-firewall luci-mod-admin-full -opkg luci-theme-material -luci-theme-bootstrap luci-app-cpu-status-mini internet-detector luci-app-internet-detector luci-app-log-viewer openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe luci-app-https-dns-proxy curl"
   
 jobs:
   build:
@@ -54,14 +55,14 @@ jobs:
       run: |
         cd openwrt
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE1 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.RELEASE }}_SFTP_sysupgrade.bin
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.RELEASE }}_OPENVPN_SFTP_sysupgrade.bin
 
     - name: Build the image of type 2
       id: type2
       run: |
         cd openwrt
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE2 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.RELEASE }}_DoH_sysupgrade.bin
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.RELEASE }}_OPENVPN_DoH_sysupgrade.bin
         
     - name: Create Release
       id: create_release
@@ -69,8 +70,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.RELEASE }}
-        release_name: OpenWrt TL-WR902AC (${{ env.RELEASE }})
+        tag_name: OPENVPN_${{ env.RELEASE }}
+        release_name: OpenWrt TL-WR902AC (${{ env.RELEASE }}) OPENVPN
         body: |
           This release is based on OpenWrt release ${{ env.RELEASE }}.
                     
@@ -84,8 +85,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: openwrt/OpenWrt_TL-WR902AC_${{ env.RELEASE }}_SFTP_sysupgrade.bin
-        asset_name: OpenWrt_TL-WR902AC_${{ env.RELEASE }}_SFTP_sysupgrade.bin
+        asset_path: openwrt/OpenWrt_TL-WR902AC_${{ env.RELEASE }}_OPENVPN_SFTP_sysupgrade.bin
+        asset_name: OpenWrt_TL-WR902AC_${{ env.RELEASE }}_OPENVPN_SFTP_sysupgrade.bin
         asset_content_type: application/bin
 
     - name: Upload type2 Asset
@@ -95,6 +96,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: openwrt/OpenWrt_TL-WR902AC_${{ env.RELEASE }}_DoH_sysupgrade.bin
-        asset_name: OpenWrt_TL-WR902AC_${{ env.RELEASE }}_DoH_sysupgrade.bin
+        asset_path: openwrt/OpenWrt_TL-WR902AC_${{ env.RELEASE }}_OPENVPN_DoH_sysupgrade.bin
+        asset_name: OpenWrt_TL-WR902AC_${{ env.RELEASE }}_OPENVPN_DoH_sysupgrade.bin
         asset_content_type: application/bin
