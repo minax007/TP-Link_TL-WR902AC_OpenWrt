@@ -60,7 +60,6 @@ jobs:
       run: |
         cd openwrt
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE2 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_MI-RA75_${{ env.OPENWRT_VERSION }}_DoH_sysupgrade.bin
         mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-${{ env.BOARD }}-${{ env.SUBTARGET }}-${{ env.PROFILE }}-squashfs-sysupgrade.bin OpenWrt_TL-WR902AC_${{ env.OPENWRT_VERSION }}_OPENVPN_DoH_sysupgrade.bin      
 
     - name: Create Release
