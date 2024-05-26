@@ -9,7 +9,8 @@ on:
   workflow_dispatch:
   
 env:
-  RELEASE: "21.02.7"
+#  RELEASE: "21.02.7"
+  RELEASE: "22.03.6"
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
   PROFILE: "tplink_tl-wr902ac-v3"
