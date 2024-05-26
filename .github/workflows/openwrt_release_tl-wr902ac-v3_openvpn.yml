@@ -9,13 +9,13 @@ on:
   workflow_dispatch:
   
 env:
-#  RELEASE: "21.02.7"
-  RELEASE: "22.03.1"
+  RELEASE: "21.02.7"
+#  RELEASE: "22.03.1"
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
   PROFILE: "tplink_tl-wr902ac-v3"
-#  PACKAGES_TYPE1: "luci luci-theme-material internet-detector luci-app-cpu-status-mini luci-app-log-viewer luci-app-internet-detector openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe openssh-sftp-server"
-  PACKAGES_TYPE1: "luci luci-theme-material internet-detector luci-app-cpu-status-mini luci-app-log-viewer luci-app-internet-detector openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe vsftpd"
+  PACKAGES_TYPE1: "luci luci-theme-material internet-detector luci-app-cpu-status-mini luci-app-log-viewer luci-app-internet-detector openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe openssh-sftp-server"
+#  PACKAGES_TYPE1: "luci luci-theme-material internet-detector luci-app-cpu-status-mini luci-app-log-viewer luci-app-internet-detector openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe vsftpd"
   PACKAGES_TYPE2: "luci luci-theme-material internet-detector luci-app-cpu-status-mini luci-app-log-viewer luci-app-internet-detector openvpn-openssl luci-app-openvpn -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only -ppp -ppp-mod-pppoe luci-app-https-dns-proxy curl"
   
 jobs:
@@ -51,10 +51,10 @@ jobs:
         wget -O packages.txt https://github.com/minax007/packages/raw/main/external-package-urls.txt
         cat packages.txt | xargs wget -P /mnt/workdir/openwrt-imagebuilder-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64/packages
 
-#    - name: Include External ipk-Packages from release 22.03.6
-#      run: |
-#        wget -O packages.txt https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/raw/main/external-package-urls.txt
-#        cat packages.txt | xargs wget -P /mnt/workdir/openwrt-imagebuilder-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64/packages
+    - name: Include External ipk-Packages from release 22.03.6
+      run: |
+        wget -O packages.txt https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/raw/main/external-package-urls.txt
+        cat packages.txt | xargs wget -P /mnt/workdir/openwrt-imagebuilder-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64/packages
         
     - name: Build the image of type 1
       id: type1
