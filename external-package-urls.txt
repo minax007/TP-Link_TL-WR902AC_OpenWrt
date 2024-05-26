@@ -1,3 +1,1 @@
 https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/raw/main/22.03.6-packages/luci-theme-material_git-24.089.55529-1af6f87_all.ipk
-
-https://github.com/minax007/TP-Link_TL-WR902AC_OpenWrt/raw/main/22.03.6-packages/luci-app-https-dns-proxy_2023.11.19_all.ipk
