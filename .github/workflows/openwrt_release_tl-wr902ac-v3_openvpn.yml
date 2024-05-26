@@ -10,7 +10,7 @@ on:
   
 env:
 #  RELEASE: "21.02.7"
-  RELEASE: "22.03.6"
+  RELEASE: "22.03.5"
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
   PROFILE: "tplink_tl-wr902ac-v3"
