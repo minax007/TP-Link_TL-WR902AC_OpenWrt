@@ -76,7 +76,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: OPENVPN_${{ env.RELEASE }}
+        tag_name: DoH_${{ env.RELEASE }}
         release_name: OpenWrt TL-WR902AC (${{ env.RELEASE }}) DoH Adblock
         body: |
           This release is based on OpenWrt release ${{ env.RELEASE }}.
