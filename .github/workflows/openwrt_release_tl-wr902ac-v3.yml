@@ -36,7 +36,7 @@ jobs:
     - name: Download imagebuilder
       working-directory: /mnt/workdir
       run: |
-        curl -O "https://archive.openwrt.org/releases/${{ env.RELEASE }}/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-imagebuilder-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64.tar.xz"
+        curl -O "https://archive.openwrt.org/releases/${{ env.RELEASE }}/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-imagebuilder-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64.tar.zst"
         tar xvaf openwrt-imagebuilder-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64.tar.zst
         ln -sf /mnt/workdir/openwrt-imagebuilder-${{ env.RELEASE }}-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64 $GITHUB_WORKSPACE/openwrt
  
